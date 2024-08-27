@@ -29,12 +29,7 @@ class PuppeteerAdapter extends utils.Adapter {
     this.on("unload", this.onUnload.bind(this));
     this.on("message", this.onMessage.bind(this));
   }
-  async onReady() {
-    let additionalArgs;
-    if (this.config.additionalArgs) {
-      additionalArgs = this.config.additionalArgs.map((entry) => entry.Argument);
-    }
-    this.log.debug(`Additional arguments: ${JSON.stringify(additionalArgs)}`);
+async onReady() {
     this.browser = await import_puppeteer.default.launch({ headless: "new", defaultViewport: null, executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     this.subscribeStates("url");
     this.log.info("Ready to take screenshots");
